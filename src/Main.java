@@ -1,11 +1,12 @@
 public class Main {
-    static String[] alphabet1 = "abcdefghijklmnopqrstuvwxyz".split(".");
-    static String[] alphabet2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(".");
+    static String[] zifferMorse = {"-----", ".----", "..---", "...--", "....-",
+                                   ".....", "-....", "--...", "---..", "----."};
     static String[] alphabetMorse = {
             ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..",
             ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.",
             "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."
     };
+
 
     public static void main(String[] args) {
 
@@ -24,14 +25,21 @@ public class Main {
 
         String returnMorse = "";
         int index = 0;
-        for(char c : eingabe.toCharArray()){
-            if(c >31 && c<65) continue;
-            if (c >96)
-                index = (c % 97);
-            else
-                index =c % 65;
+        for(char c : eingabe.toLowerCase().toCharArray()){
 
-            returnMorse += alphabetMorse[index]   + " ";
+
+            if(Character.isDigit(c)){ // ist es eine Zahl ?
+                index = c - '0';
+                returnMorse += zifferMorse[index]   + " ";
+
+            }
+
+            // fals der c ein alphabet ist, wird sie als morse angegeben.
+            if(Character.isAlphabetic(c)) {
+                index = c -'a';
+                returnMorse += alphabetMorse[index]   + " ";
+            }
+
 
         }
 
