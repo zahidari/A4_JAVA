@@ -3,7 +3,7 @@ import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 public class Main {
     static String[] zifferMorse = {"-----", ".----", "..---", "...--", "....-",
                                     ".....", "-....", "--...", "---..", "----."};
-    static String[] alphabet = "abcdefghijklmnopqrstuvwxyz".split(".");
+    static String[] alphabet = "abcdefghijklmnopqrstuvwxyz ".split("");
 
     static String[] alphabetMorse = {
             ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..",
@@ -23,7 +23,6 @@ public class Main {
         //System.out.println(morse);
 
         String intget = getZeichen(message);
-
         System.out.println(intget);
 
     }//main end
@@ -52,35 +51,37 @@ public class Main {
 
         return returnMorse;
     }
+
+
+    /**
+     *
+     * @param morseEingabe gesuchte morse code
+     * @return int index
+     */
+    public static int searchAlphabet(String morseEingabe){
+
+        for (int i = 0; i < alphabetMorse.length; i++) {
+            if(morseEingabe.equals(alphabetMorse[i]) )
+                return i;
+        }
+
+        return 26;
+    }
     public static String getZeichen(String eingabe){
         String ruckgabe = "";
+        int index = 0;
 
         //der Satz wurde in Wörtern geteilt.
-        String[] splittedStr = eingabe.split("\\/\\/"); //für // zeichen
-
-        //jedes Word wird enzeln behandelt
-        for(String s : splittedStr){
-            //jedes Word wird einzelne Buchstabe
-            String[] alphabetArr = s.split("\\/");
-                for(String s2 : alphabetArr){
-                    //vergleiche
-                    for (int i = 0; i < alphabetMorse.length; i++) {
-                        if(s2.equals(alphabetMorse[i])){
-                            ruckgabe += alphabet[i];
-                            break;
-                        }
+        String[] splittedStr = eingabe.split("\\/"); //für // zeichen
 
 
-
-                    }
-
-                }
+        for(String tempStr : splittedStr){
+            index = searchAlphabet(tempStr);
+            ruckgabe += alphabet[index];
         }
 
 
-
-
-
         return ruckgabe;
-    }//getZeichen end
+    }//getZeichen ende
+
 }//class end
