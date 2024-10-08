@@ -1,6 +1,10 @@
+import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
+
 public class Main {
     static String[] zifferMorse = {"-----", ".----", "..---", "...--", "....-",
-                                   ".....", "-....", "--...", "---..", "----."};
+                                    ".....", "-....", "--...", "---..", "----."};
+    static String[] alphabet = "abcdefghijklmnopqrstuvwxyz".split(".");
+
     static String[] alphabetMorse = {
             ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..",
             ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.",
@@ -12,12 +16,15 @@ public class Main {
 
 
 
+        String message = "-../.././..././...//.-./.-/./-/..././.-..//../.../-//--././.-../---/./.../-";
 
+    //String morse = getMorseZeichen("Was machen wir jetzt?");
 
-    String morse = getMorseZeichen("Was machen wir jetzt?");
-        System.out.println(morse);
+        //System.out.println(morse);
 
+        String intget = getZeichen(message);
 
+        System.out.println(intget);
 
     }//main end
 
@@ -45,4 +52,35 @@ public class Main {
 
         return returnMorse;
     }
+    public static String getZeichen(String eingabe){
+        String ruckgabe = "";
+
+        //der Satz wurde in Wörtern geteilt.
+        String[] splittedStr = eingabe.split("\\/\\/"); //für // zeichen
+
+        //jedes Word wird enzeln behandelt
+        for(String s : splittedStr){
+            //jedes Word wird einzelne Buchstabe
+            String[] alphabetArr = s.split("\\/");
+                for(String s2 : alphabetArr){
+                    //vergleiche
+                    for (int i = 0; i < alphabetMorse.length; i++) {
+                        if(s2.equals(alphabetMorse[i])){
+                            ruckgabe += alphabet[i];
+                            break;
+                        }
+
+
+
+                    }
+
+                }
+        }
+
+
+
+
+
+        return ruckgabe;
+    }//getZeichen end
 }//class end
